@@ -14,4 +14,28 @@ export default class TodoManager {
             localStorage.setItem('todos', JSON.stringify(todos));
         }
     }
+
+    markAsCompleted(todo) {
+
+        let todos = JSON.parse(localStorage.getItem('todos'));
+
+        todos = todos.map(item => {
+
+            if (item.id === todo.id) {
+
+                return { ...item, isCompleted: !todo.isCompleted }
+            }
+            return item;
+        })
+
+        localStorage.setItem('todos', JSON.stringify(todos));
+    }
+
+    deleteTodo(todo) {
+        let todos = JSON.parse(localStorage.getItem('todos'));
+
+        todos = todos.filter(item => item.id !== todo.id);
+
+        localStorage.setItem('todos', JSON.stringify(todos));
+    }
 }
