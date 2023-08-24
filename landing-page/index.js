@@ -1,5 +1,6 @@
 const productItems = document.querySelectorAll('.product-item');
 const aboutImages = document.querySelectorAll('.about-img');
+const ctaAnimates = document.querySelectorAll('.cta-animate');
 
 const navbar = document.getElementById('navbar')
 
@@ -42,6 +43,19 @@ function animateAboutImages() {
     });
 }
 
+function animateCtaItems() {
+    ctaAnimates.forEach(item => {
+
+        const itemTop = item.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+
+        if (itemTop < windowHeight) {
+            item.style.opacity = 1;
+        } else {
+            item.style.opacity = 0;
+        }
+    });
+}
 let isAboutDescriptionExpanded = false;
 
 aboutBtnShowMore.addEventListener('click', () => {
@@ -85,6 +99,7 @@ window.addEventListener('scroll', () => {
         window.requestAnimationFrame(() => {
             animateProductItems();
             animateAboutImages();
+            animateCtaItems();
             isScrolling = false;
         });
         isScrolling = true;
