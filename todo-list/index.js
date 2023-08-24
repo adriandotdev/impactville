@@ -4,12 +4,14 @@ const form = document.getElementById('todo-form');
 const todoList = document.getElementById('todo-list');
 
 import TodoManager from "./classes/TodoManager.js";
+import ListRenderer from "./classes/ListRenderer.js";
 
 if (localStorage.getItem('todos')) {
     renderListOfTasks();
 }
 
 const todoManager = new TodoManager();
+const listRenderer = new ListRenderer(todoManager, todoList);
 
 form.addEventListener('submit', (e) => {
 
@@ -30,7 +32,8 @@ form.addEventListener('submit', (e) => {
 
     todoManager.addTodo(input.value);
 
-    renderListOfTasks();
+    // renderListOfTasks();
+    listRenderer.renderListOfTasks();
     input.value = '';
     input.focus();
 });
