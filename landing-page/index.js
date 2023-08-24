@@ -1,18 +1,35 @@
 const productItems = document.querySelectorAll('.product-item');
+const aboutImages = document.querySelectorAll('.about-img');
+
+const navbar = document.getElementById('navbar')
 
 // About Functionalities
 const aboutDescription = document.getElementById('about-text-description');
 const aboutBtnShowMore = document.getElementById('btn-show-more')
 const truncateIcon = document.getElementById('truncate');
-const form = document.getElementById('contact-form');
-const txtFieldFullName = document.getElementById('full-name');
-const txtEmailField = document.getElementById('email');
-const txtMessageField = document.getElementById('message');
-const EMAIL_PATTERN = /^[a-zA-Z0-9._%+-]+@(gmail\.com|impactville\.com)$/i;
 
+// Form Functionalities
+const form = document.getElementById('contact-form');
+
+// Animate all of the product images.
 function animateProductItems() {
 
     productItems.forEach(item => {
+
+        const itemTop = item.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+
+        if (itemTop < windowHeight) {
+            item.style.opacity = 1;
+        } else {
+            item.style.opacity = 0;
+        }
+    });
+}
+
+// Animate all of the about images.
+function animateAboutImages() {
+    aboutImages.forEach(item => {
 
         const itemTop = item.getBoundingClientRect().top;
         const windowHeight = window.innerHeight;
@@ -48,33 +65,26 @@ aboutBtnShowMore.addEventListener('click', () => {
 form.addEventListener('submit', (e) => {
 
     e.preventDefault();
-
-    if (!txtFieldFullName.value) {
-
-        txtFieldFullName.classList.add('error-field')
-    }
-
-    if (!txtEmailField.value || !EMAIL_PATTERN.test(txtEmailField.value)) {
-
-        txtEmailField.classList.add('error-field')
-    }
 });
 
-txtFieldFullName.addEventListener('keydown', () => {
-
-    txtFieldFullName.classList.remove('error-field');
-})
-
-txtEmailField.addEventListener('keydown', () => {
-
-    txtEmailField.classList.remove('error-field');
-})
 // Scroll event
 let isScrolling = false;
 window.addEventListener('scroll', () => {
+
+    if (window.scrollY >= 50) {
+        navbar.style.background = '#171717';
+        navbar.classList.remove('pt-2');
+        navbar.classList.add('p-0', 'pb-2');
+    }
+    else {
+        navbar.style.background = 'transparent';
+        navbar.classList.remove('p-0');
+        navbar.classList.add('pt-2');
+    }
     if (!isScrolling) {
         window.requestAnimationFrame(() => {
             animateProductItems();
+            animateAboutImages();
             isScrolling = false;
         });
         isScrolling = true;
