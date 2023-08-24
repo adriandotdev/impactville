@@ -48,6 +48,7 @@ form {
 
         h6 {
             margin: 0;
+            font-weight: bold;
         }
 
         input[type="checkbox"] {
@@ -61,8 +62,7 @@ form {
 
         &:hover {
             background: #c2e7e7;
+            transform: scale(1.05);
         }
     }
-
-
 }
