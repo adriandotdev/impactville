@@ -4,6 +4,11 @@ const productItems = document.querySelectorAll('.product-item');
 const aboutDescription = document.getElementById('about-text-description');
 const aboutBtnShowMore = document.getElementById('btn-show-more')
 const truncateIcon = document.getElementById('truncate');
+const form = document.getElementById('contact-form');
+const txtFieldFullName = document.getElementById('full-name');
+const txtEmailField = document.getElementById('email');
+const txtMessageField = document.getElementById('message');
+const EMAIL_PATTERN = /^[a-zA-Z0-9._%+-]+@(gmail\.com|impactville\.com)$/i;
 
 function animateProductItems() {
 
@@ -40,6 +45,30 @@ aboutBtnShowMore.addEventListener('click', () => {
     }
 });
 
+form.addEventListener('submit', (e) => {
+
+    e.preventDefault();
+
+    if (!txtFieldFullName.value) {
+
+        txtFieldFullName.classList.add('error-field')
+    }
+
+    if (!txtEmailField.value || !EMAIL_PATTERN.test(txtEmailField.value)) {
+
+        txtEmailField.classList.add('error-field')
+    }
+});
+
+txtFieldFullName.addEventListener('keydown', () => {
+
+    txtFieldFullName.classList.remove('error-field');
+})
+
+txtEmailField.addEventListener('keydown', () => {
+
+    txtEmailField.classList.remove('error-field');
+})
 // Scroll event
 let isScrolling = false;
 window.addEventListener('scroll', () => {

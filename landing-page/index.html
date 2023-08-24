@@ -15,7 +15,11 @@
     <nav class="navbar  navbar-page">
         <div class="container pt-3">
             <a class="navbar-brand navbar-logo" href="#">
-                VisionPro
+                <p>
+                    <span>Vision</span>
+                    <span class="text-pro">Pro</span>
+                </p>
+
             </a>
 
             <ul class="nav-links d-flex gap-lg-5 gap-3 align-items-center m-0 p-0">
@@ -29,7 +33,9 @@
         <div
             class="img-container d-flex justify-content-center align-items-start align-items-lg-center px-5 flex-column">
             <h1 class="hero-main-title display-1 animate__animated animate__fadeInUp ">Capture Great Moments</h1>
-            <p class="hero-description h4 mb-4 animate__animated animate__fadeInUp animate__delay-2s">Discover a world
+            <p
+                class="hero-description h4 mb-4 animate__animated animate__fadeInUp animate__delay-2s text-start text-lg-center">
+                Discover a world
                 of possibilities
                 through crystal-clear optics and
                 precision
@@ -89,7 +95,7 @@
                     <div class="about-img-bg-4"></div>
                 </div>
                 <div class="about-us-description mt-3">
-                    <h1 class="text-center">About</h1>
+                    <h1 class="text-center about-title">Who We Are?</h1>
                     <p id="about-text-description" class="text-center description p-0 m-0">
                         Step into the world of photography innovation with [Your Company Name]'s flagship camera lens.
                         As a trailblazer in
@@ -119,6 +125,7 @@
             </div>
         </div>
 
+        <!-- CTA -->
         <div class="cta-container container-fluid">
 
             <div class="cta-content d-flex justify-content-center align-items-center flex-column">
@@ -133,6 +140,36 @@
                 </p>
                 <button class="cta-content-btn btn btn-lg">Order Now</button>
             </div>
+        </div>
+
+        <!-- FORM -->
+        <div class="contacts-container  row justify-content-center py-5 gap-lg-5 gap-3">
+
+            <div class="col-12 contacts-container-description d-flex flex-column justify-content-center">
+                <h1 class="contacts-container-title text-center">
+                    Connect With Us
+                </h1>
+                <p class="text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi ad magnam minima
+                    eum esse porro cumque
+                    cupiditate asperiores, dicta debitis, iure similique sed possimus aspernatur. Perferendis quas nam
+                    vel sed.</p>
+            </div>
+            <form id="contact-form col-12">
+                <section>
+                    <label for="full-name">Full Name</label>
+                    <input class="" type=" text" name="full-name" id="full-name">
+                    <small>Please provide your fullname</small>
+                </section>
+                <section>
+                    <label for="email">Email</label>
+                    <input class="" type="email" name="email" id="email">
+                </section>
+                <section>
+                    <label for="message">Message</label>
+                    <textarea name="message" id="message" cols="30" rows="10"></textarea>
+                </section>
+                <input class="btn" type="submit" value="Send">
+            </form>
         </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
