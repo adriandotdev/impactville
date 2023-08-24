@@ -3,26 +3,34 @@ const btnAdd = document.getElementById('btn-todo');
 const form = document.getElementById('todo-form');
 const todoList = document.getElementById('todo-list');
 
-// On First Load
-let todos = []
+import TodoManager from "./classes/TodoManager.js";
 
 if (localStorage.getItem('todos')) {
-    todos = JSON.parse(localStorage.getItem('todos'));
-
-    todos.forEach(item => {
-        console.log(item)
-        todoList.appendChild(createTask(item));
-    });
+    renderListOfTasks();
 }
+
+const todoManager = new TodoManager();
 
 form.addEventListener('submit', (e) => {
 
     e.preventDefault();
-    const id = Math.random() * 512345;
-    todos.push({ id, task: input.value, isCompleted: false });
-    localStorage.setItem('todos', JSON.stringify(todos));
-    todoList.appendChild(createTask({ id, task: input.value, isCompleted: false }));
 
+    // const id = Math.random() * 512345;
+
+    // if (localStorage.getItem('todos')) {
+    //     let todos = JSON.parse(localStorage.getItem('todos'));
+    //     todos.push({ id, task: input.value, isCompleted: false })
+    //     localStorage.setItem('todos', JSON.stringify(todos));
+    // }
+    // else {
+    //     let todos = [];
+    //     todos.push({ id, task: input.value, isCompleted: false });
+    //     localStorage.setItem('todos', JSON.stringify(todos));
+    // }
+
+    todoManager.addTodo(input.value);
+
+    renderListOfTasks();
     input.value = '';
     input.focus();
 });
@@ -31,20 +39,42 @@ form.addEventListener('submit', (e) => {
 // Create the Task
 function createTask(todo) {
 
-    const liElement = document.createElement('li');
-    const h6 = document.createElement('h6');
-    const div = document.createElement('div');
-    const checkbox = document.createElement('input');
-    const span = document.createElement('span');
+    const task = document.createElement('li');
+    const buttonsContainer = document.createElement('div');
 
-    liElement.classList.add('d-flex', 'justify-content-between', 'gap-5', 'align-items-center', 'mt-2');
+    task.classList.add('d-flex', 'justify-content-between', 'gap-5', 'align-items-center', 'mt-2');
+
+    // Append the checkbox and span to the div.
+    buttonsContainer.appendChild(createCheckbox(todo));
+    buttonsContainer.appendChild(createDeleteButton(todo));
+
+    task.appendChild(createTitle(todo));
+    task.appendChild(buttonsContainer);
+    task.style.borderLeft = todo.isCompleted ? '8px solid green' : '8px solid red';
+
+    return task;
+}
+
+function createTitle(todo) {
+    const h6 = document.createElement('h6');
     h6.textContent = todo.task;
 
-    // Checkbox
+    return h6;
+}
+
+function createCheckbox(todo) {
+    const checkbox = document.createElement('input');
+
     checkbox.type = 'checkbox';
     checkbox.checked = todo.isCompleted;
     checkbox.addEventListener('change', () => markAsCompleted(todo));
     checkbox.classList.add('mx-1');
+
+    return checkbox;
+}
+
+function createDeleteButton(todo) {
+    const span = document.createElement('span');
 
     // Delete Button
     span.textContent = 'Delete';
@@ -57,19 +87,11 @@ function createTask(todo) {
             deleteTask(todo);
         }
     })
-    // Append the checkbox and span to the div.
-    div.appendChild(checkbox);
-    div.appendChild(span);
 
-    // Append the h6 and div to the list element.
-    liElement.appendChild(h6);
-    liElement.appendChild(div);
-
-    liElement.style.borderLeft = todo.isCompleted ? '8px solid green' : 'none';
-
-    return liElement;
+    return span;
 }
 
+// Mark the task as completed.
 function markAsCompleted(todo) {
 
     let todos = JSON.parse(localStorage.getItem('todos'));
@@ -77,7 +99,8 @@ function markAsCompleted(todo) {
     todos = todos.map(item => {
 
         if (item.id === todo.id) {
-            return { ...item, isCompleted: !item.isCompleted }
+
+            return { ...item, isCompleted: !todo.isCompleted }
         }
         return item;
     })
@@ -86,6 +109,7 @@ function markAsCompleted(todo) {
     renderListOfTasks();
 }
 
+// Delete a task to the list.
 function deleteTask(todo) {
 
     let todos = JSON.parse(localStorage.getItem('todos'));
@@ -96,6 +120,7 @@ function deleteTask(todo) {
     renderListOfTasks();
 }
 
+/** This will render the tasks from the localStorage. */
 function renderListOfTasks() {
 
     while (todoList.firstChild)
